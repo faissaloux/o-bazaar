@@ -10,7 +10,7 @@ class CreateAddressesTable extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
 
-			$table->bigIncrements('id',11);
+			$table->bigIncrements('id');
 			$table->string('given_name')->nullable()->default('NULL');
 			$table->string('country_code')->nullable()->default('NULL');
 			$table->string('street')->nullable()->default('NULL');
@@ -21,12 +21,12 @@ class CreateAddressesTable extends Migration
 			$table->string('latitude')->nullable()->default('NULL');
 			$table->string('longitude')->nullable()->default('NULL');
 			$table->string('phone')->nullable()->default('NULL');
-			$table->integer('user_id',255)->nullable()->default('NULL');
-			$table->tinyInteger('is_primary',1)->nullable()->default('NULL');
-			$table->tinyInteger('is_billing',1)->nullable()->default('NULL');
-			$table->tinyInteger('is_shipping',1)->nullable()->default('NULL');
+			$table->integer('user_id')->nullable();
+			$table->tinyInteger('is_primary')->nullable();
+			$table->tinyInteger('is_billing')->nullable();
+			$table->tinyInteger('is_shipping')->nullable();
 			$table->timestamps();
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

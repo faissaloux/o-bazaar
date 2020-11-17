@@ -10,7 +10,7 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
 
-            $table->bigIncrements('id',10)->unsigned();
+            $table->bigIncrements('id');
             $table->string('key');
             $table->text('value');
             $table->string('store_id')->nullable()->default('NULL');

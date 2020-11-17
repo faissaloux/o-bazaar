@@ -10,9 +10,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
 
-			$table->bigIncrements('id',11);
+			$table->bigIncrements('id');
 			$table->string('statue')->nullable()->default('NULL');
-			$table->integer('user_id',255);
+			$table->integer('user_id');
 			$table->string('address_id')->nullable()->default('NULL');
 			$table->string('total')->nullable()->default('NULL');
 			$table->string('store_id')->nullable()->default('NULL');
@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
 			$table->string('country')->nullable()->default('NULL');
 			$table->string('platform')->nullable()->default('NULL');
 			$table->timestamps();
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

@@ -10,10 +10,10 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
 
-		$table->integer('id',10)->unsigned();
-		$table->string('key');
-		$table->text('value');
-		$table->string('lang')->default('en');
+            $table->bigIncrements('id');
+            $table->string('key');
+            $table->text('value');
+            $table->string('lang')->default('en');
 
         });
     }

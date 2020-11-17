@@ -10,13 +10,13 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
 
-            $table->bigIncrements('id',11);
+            $table->bigIncrements('id');
             $table->string('name',400);
             $table->string('post_mime_type');
             $table->string('size')->nullable()->default('NULL');
             $table->string('store_id')->nullable()->default('NULL');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

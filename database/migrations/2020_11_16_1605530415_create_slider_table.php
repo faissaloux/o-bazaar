@@ -10,14 +10,13 @@ class CreateSliderTable extends Migration
     {
         Schema::create('slider', function (Blueprint $table) {
 
-		$table->integer('id',11);
+		$table->bigIncrements('id');
 		$table->string('image')->nullable()->default('NULL');
-		$table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-		$table->timestamp('updated_at')->nullable()->default('NULL');
 		$table->string('link',400)->nullable()->default('NULL');
-		$table->timestamp('deleted_at')->nullable()->default('NULL');
 		$table->string('lang')->default('en');
-		$table->string('store_id')->nullable()->default('NULL');
+        $table->integer('store_id')->nullable();
+        $table->timestamps();
+        $table->timestamp('deleted_at')->nullable();
 
         });
     }

@@ -10,11 +10,11 @@ class CreatePostscategoriesTable extends Migration
     {
         Schema::create('postscategories', function (Blueprint $table) {
 
-            $table->bigIncrements('id',20);
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->nullable()->default('NULL');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

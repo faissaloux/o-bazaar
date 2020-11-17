@@ -10,7 +10,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
 
-			$table->bigIncrements('id',11);
+			$table->bigIncrements('id');
 			$table->text('name');
 			$table->string('thumbnail')->nullable()->default('NULL');
 			$table->text('gallery');
@@ -21,7 +21,6 @@ class CreateProductsTable extends Migration
 			$table->string('slug');
 			$table->text('videos');
 			$table->string('statue')->nullable()->default('NULL');
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
 			$table->string('lang')->nullable()->default('NULL');
 			$table->string('store_id')->nullable()->default('NULL');
 			$table->string('size')->nullable()->default('NULL');
@@ -32,8 +31,9 @@ class CreateProductsTable extends Migration
 			$table->string('length')->nullable()->default('NULL');
 			$table->string('width')->nullable()->default('NULL');
 			$table->string('sku')->nullable()->default('NULL');
-			$table->integer('active',11)->nullable()->default('NULL');
+			$table->integer('active')->nullable();
 			$table->timestamps();
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

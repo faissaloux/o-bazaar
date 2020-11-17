@@ -10,20 +10,19 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
 
-		$table->integer('id',250);
-		$table->string('name',250)->nullable()->default('NULL');
-		$table->string('street',250)->nullable()->default('NULL');
-		$table->string('description',250)->nullable()->default('NULL');
-		$table->text('logo');
-		$table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
-		$table->datetime('updated_at')->nullable()->default('NULL');
-		$table->timestamp('deleted_at')->nullable()->default('NULL');
-		$table->string('thumbnail')->nullable()->default('NULL');
-		$table->string('user_id')->nullable()->default('NULL');
-		$table->string('postal_code')->nullable()->default('NULL');
-		$table->string('slug')->nullable()->default('NULL');
-		$table->string('latitude')->nullable()->default('NULL');
-		$table->string('longitude')->nullable()->default('NULL');
+			$table->bigIncrements('id');
+			$table->string('name',250)->nullable()->default('NULL');
+			$table->string('street',250)->nullable()->default('NULL');
+			$table->string('description',250)->nullable()->default('NULL');
+			$table->text('logo');
+			$table->string('thumbnail')->nullable()->default('NULL');
+			$table->string('user_id')->nullable()->default('NULL');
+			$table->string('postal_code')->nullable()->default('NULL');
+			$table->string('slug')->nullable()->default('NULL');
+			$table->string('latitude')->nullable()->default('NULL');
+			$table->string('longitude')->nullable()->default('NULL');
+			$table->timestamps();
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

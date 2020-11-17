@@ -10,18 +10,18 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
 
-			$table->bigIncrements('id',255);
+			$table->bigIncrements('id');
 			$table->string('author')->nullable()->default('NULL');
 			$table->string('title')->nullable()->default('NULL');
 			$table->text('content');
 			$table->string('thumbnail')->nullable()->default('NULL');
-			$table->integer('statue',255)->nullable()->default('NULL');
-			$table->integer('comments_enabled',255)->nullable()->default('NULL');
-			$table->integer('type',11)->nullable()->default('NULL');
+			$table->integer('statue')->nullable();
+			$table->integer('comments_enabled')->nullable();
+			$table->integer('type')->nullable();
 			$table->string('slug',11)->nullable()->default('NULL');
-			$table->integer('categoryID',255)->nullable()->default('NULL');
+			$table->integer('categoryID')->nullable();
 			$table->timestamps();
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

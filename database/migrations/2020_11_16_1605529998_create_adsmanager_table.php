@@ -10,7 +10,7 @@ class CreateAdsmanagerTable extends Migration
     {
         Schema::create('adsmanager', function (Blueprint $table) {
 
-			$table->bigIncrements('id',250);
+			$table->bigIncrements('id');
 			$table->string('statue')->nullable()->default('NULL');
 			$table->string('name',250)->nullable()->default('NULL');
 			$table->string('url',250)->nullable()->default('NULL');
@@ -19,7 +19,7 @@ class CreateAdsmanagerTable extends Migration
 			$table->string('area')->nullable()->default('NULL');
 			$table->string('lang')->default('en');
 			$table->timestamps();
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

@@ -169,11 +169,11 @@ Route::group(['prefix' => '/datenschutzerklarung', 'as' => 'datenschutzerklarung
     Route::get('/index', 'Theme2Controller@datenschutzerklarungIndex');
     Route::get('/kunden', 'Theme2Controller@datenschutzerklarungKunden');
     Route::get('/lieferanten/drittanbieter', 'Theme2Controller@datenschutzerklarungLieferanten');
-};
+});
 
 Route::group(['prefix' => '/agb', 'as' => 'agb.' ], function () {
     Route::get('/', 'Theme2Controller@agb');
     Route::get('/kunden', 'Theme2Controller@agbKunden');
     Route::get('/lieferanten', 'Theme2Controller@agbLieferanten');
     Route::get('/lieferanten/Kunden', 'Theme2Controller@agbLieferantenKunden');
-};
+});

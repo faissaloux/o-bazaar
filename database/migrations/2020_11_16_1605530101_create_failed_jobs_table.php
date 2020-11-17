@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateFailedJobsTable extends Migration
@@ -13,8 +14,8 @@ class CreateFailedJobsTable extends Migration
             $table->bigIncrements('id',20)->unsigned();
             $table->text('connection');
             $table->text('queue');
-            $table->timestamp('failed_at')->default('CURRENT_TIMESTAMP');
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('failed_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

@@ -10,14 +10,14 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
 
-            $table->bigIncrements('id',255);
+            $table->bigIncrements('id');
             $table->string('title')->nullable()->default('NULL');
             $table->text('content');
             $table->string('slug')->nullable()->default('NULL');
-            $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
             $table->string('lang')->default('en');
-            $table->string('store_id')->nullable()->default('NULL');
+            $table->integer('store_id')->nullable();
+            $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

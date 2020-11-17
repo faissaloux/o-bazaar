@@ -10,11 +10,11 @@ class CreateFaqscategoriesTable extends Migration
     {
         Schema::create('faqscategories', function (Blueprint $table) {
 
-            $table->bigIncrements('id',11);
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->nullable()->default('NULL');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

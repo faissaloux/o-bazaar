@@ -10,14 +10,14 @@ class CreateProductreviewsTable extends Migration
     {
         Schema::create('productreviews', function (Blueprint $table) {
 
-            $table->bigIncrements('id',255);
-            $table->integer('user_id',255);
-            $table->integer('rating',255);
+            $table->bigIncrements('id');
+            $table->integer('user_id');
+            $table->integer('rating');
             $table->string('title');
-            $table->integer('productID',255);
+            $table->integer('productID');
             $table->text('review');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

@@ -10,14 +10,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
 
-		$table->bigInteger('id',20)->unsigned();
+		$table->bigInteger('id');
 		$table->string('name')->nullable()->default('NULL');
 		$table->string('email');
-		$table->timestamp('email_verified_at')->nullable()->default('NULL');
+		$table->timestamp('email_verified_at')->nullable();
 		$table->string('password')->nullable()->default('NULL');
 		$table->string('remember_token',100)->nullable()->default('NULL');
-		$table->timestamp('created_at')->nullable()->default('CURRENT_TIMESTAMP');
-		$table->timestamp('updated_at')->nullable()->default('NULL');
 		$table->string('avatar')->nullable()->default('NULL');
 		$table->string('description')->nullable()->default('NULL');
 		$table->string('role')->nullable()->default('NULL');
@@ -28,11 +26,12 @@ class CreateUsersTable extends Migration
 		$table->string('ip')->nullable()->default('NULL');
 		$table->string('gender')->nullable()->default('NULL');
 		$table->string('statue')->nullable()->default('NULL');
-		$table->timestamp('deleted_at')->nullable()->default('NULL');
 		$table->string('store_id')->nullable()->default('NULL');
 		$table->string('os')->nullable()->default('NULL');
 		$table->text('device_token');
 		$table->text('last_login');
+		$table->timestamps();
+		$table->timestamp('deleted_at')->nullable();
 
         });
     }

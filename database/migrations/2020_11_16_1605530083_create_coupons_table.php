@@ -10,14 +10,14 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
 
-			$table->bigIncrements('id',255);
+			$table->bigIncrements('id');
 			$table->string('code');
 			$table->string('valid_from')->nullable()->default('NULL');
 			$table->string('valid_to')->nullable()->default('NULL');
 			$table->string('discount_type');
 			$table->string('discount');
 			$table->string('maxUsage')->nullable()->default('NULL');
-			$table->integer('userMax',11)->nullable()->default('NULL');
+			$table->integer('userMax')->nullable();
 			$table->string('logged')->nullable()->default('NULL');
 			$table->string('shipping')->nullable()->default('NULL');
 			$table->text('description');
@@ -25,7 +25,7 @@ class CreateCouponsTable extends Migration
 			$table->string('title')->nullable()->default('NULL');
 			$table->string('statue')->nullable()->default('NULL');
 			$table->timestamps();
-			$table->timestamp('deleted_at')->nullable()->default('NULL');
+			$table->timestamp('deleted_at')->nullable();
 
         });
     }

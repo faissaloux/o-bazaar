@@ -10,12 +10,12 @@ class CreateFaqsTable extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
 
-            $table->bigIncrements('id',11);
+            $table->bigIncrements('id');
             $table->text('question');
             $table->text('answer');
-            $table->integer('category',255)->nullable()->default('NULL');
+            $table->integer('category')->nullable();
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

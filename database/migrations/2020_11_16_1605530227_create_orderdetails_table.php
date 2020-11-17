@@ -10,13 +10,13 @@ class CreateOrderdetailsTable extends Migration
     {
         Schema::create('orderdetails', function (Blueprint $table) {
 
-            $table->bigIncrements('id',255);
+            $table->bigIncrements('id');
             $table->string('order_id')->nullable()->default('NULL');
             $table->string('product_id')->nullable()->default('NULL');
             $table->string('quantity')->nullable()->default('NULL');
             $table->string('price')->nullable()->default('NULL');
             $table->timestamps();
-            $table->timestamp('deleted_at')->nullable()->default('NULL');
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }
