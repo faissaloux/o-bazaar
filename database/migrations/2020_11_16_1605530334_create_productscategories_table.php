@@ -10,14 +10,14 @@ class CreateProductscategoriesTable extends Migration
     {
         Schema::create('productscategories', function (Blueprint $table) {
 
-		$table->bigIncrements('id');
-		$table->string('name');
-		$table->string('slug')->nullable()->default('NULL');
-		$table->string('image')->nullable()->default('NULL');
-		$table->string('lang')->default('en');
-		$table->string('store_id')->nullable()->default('NULL');
-		$table->timestamps();
-		$table->timestamp('deleted_at')->nullable();
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('slug')->nullable()->default('NULL');
+            $table->string('image')->nullable()->default('NULL');
+            $table->string('lang')->default('en');
+            $table->string('store_id')->nullable()->default('NULL');
+            $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

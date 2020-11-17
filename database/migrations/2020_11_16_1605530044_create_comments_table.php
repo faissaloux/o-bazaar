@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
 			$table->text('content');
 			$table->string('approved',4);
 			$table->timestamps();
-			$table->string('deleted_at');
+			$table->string('deleted_at')->nullable();
 
         });
     }

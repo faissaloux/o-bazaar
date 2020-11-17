@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
 			$table->integer('statue')->nullable();
 			$table->integer('comments_enabled')->nullable();
 			$table->integer('type')->nullable();
-			$table->string('slug',11)->nullable()->default('NULL');
+			$table->string('slug')->nullable()->default('NULL');
 			$table->integer('categoryID')->nullable();
 			$table->timestamps();
 			$table->timestamp('deleted_at')->nullable();
