@@ -148,6 +148,11 @@ class UsersController extends Controller
         return redirect()->route('admin.account')->with($alert,$message);    
     }
 
+    public function current(){
+        $id = \Auth::user()->id;
+        return response()->json(['id'=> [$id]]);
+    }
+
     
 }
 
