@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,33 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::prefix('user')->group(function () {
+        Route::post('login', 'ApiController@login');
+    });
+
+    // User
+    Route::prefix('user')->middleware('auth:api')->group(function () {
+        Route::get('/profile', 'ApiController@profile');
+        Route::post('/profile/update', 'ApiController@updateProfile');
+        Route::post('/profile/address', 'ApiController@indexAdresses');
+        Route::post('/profile/address/add', 'ApiController@addAddress');
+        Route::post('/profile/address/update', 'ApiController@updateAddress');
+        Route::post('/profile/address/remove', 'ApiController@removeAddress');
+
+        Route::post('/wishlist', 'ApiController@indexWishlist');
+        Route::post('/{store_id}/wishlist/add/{product_id}', 'ApiController@addWishlist');
+        Route::post('/{store_id}/{product_id}/wishlist/update/{wishlist_id}', 'ApiController@updateWishlist');
+        Route::post('/wishlist/remove/{wishlist_id}', 'ApiController@removeWishlist');
+
+        Route::post('update/password', 'ApiController@updatePassword');
+        Route::post('/logout', 'ApiController@logout');
+    });
+
+    // Store
+    Route::prefix('stores')->middleware('auth:api')->group(function () {
+        Route::get('/', 'ApiController@storesIndex');
+        Route::get('/{store_id}/search', 'ApiController@search');
+        Route::get('/{store_id}/products', 'ApiController@storeProducts');
+        Route::get('/{store_id}/product/{product_id}', 'ApiController@productDetails');
+        Route::get('/{store_id}/category/{category_id}', 'ApiController@categoryProducts');
+    });
