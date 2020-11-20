@@ -13,6 +13,7 @@ use Request as req;
 use ShoppingCart;
 use DB;
 use \Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Mail;
 
 class WebsiteController extends Controller {
@@ -173,7 +174,6 @@ return $content;
                 $page = Page::find($slug)->first();    
             }else{
                 $page = Page::where('slug',$slug)->first();
-
                 if(!$page){
                     abort(404);
                 }
@@ -221,10 +221,9 @@ return $content;
 //        return view ($this->theme.'admin.products.index',compact('products','categories','count'))->withQuery ( $q );
 
 
-
-
-
-            return view ($this->theme.'search', compact('products','q'));
+            
+            return response()->json(array('products'=> $products), 200);
+            // return view ($this->theme.'search', compact('products','q'));
         }
 
 

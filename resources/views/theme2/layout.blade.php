@@ -208,6 +208,27 @@ a.navigation__item.ps-toggle--sidebar {
     z-index: 99999;
 }
 
+#result{
+    display: none;
+    border: 1px #CCC solid;
+    width: 535px;
+    position: absolute;
+    background: #FFF;
+    z-index: 999;
+    text-align: right;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+#result > p{
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 0;
+    padding: 10px 10px 10px 0;
+}
+#result > p:hover{
+    background-color: rgb(195, 20, 50);
+    color: #FFF;
+}
     </style>
 </head>
 
@@ -263,10 +284,17 @@ a.navigation__item.ps-toggle--sidebar {
                 </div>
                 <div class="header__content-center">
                     
-                    <form class="ps-form--quick-search" action="{{ route('search' ,[  'store' => $store] ) }}" method="get">
-                        <input type="{{ __('Search') }}" class="form-control" name="q" value="{{ app('request')->input('q') }}"  placeholder="{{ __('Search') }}" required>
+                    <form class="ps-form--quick-search" id="search-form" data-link="{{ route('search' ,[  'store' => $store] ) }}" method="post">
+                        <input  type="text"
+                                class="form-control"
+                                id="search-input"
+                                name="q" 
+                                placeholder="{{ __('Search') }}"
+                                required>
                         <button class="btn" type="submit"><i class="icon-search"></i>{{ __('Search') }}</button>
                     </form>
+                    <div id="result">
+                    </div>
                 </div>
                 <div class="header__content-right">
                     <div class="header__actions">
@@ -551,6 +579,79 @@ a.navigation__item.ps-toggle--sidebar {
     <script src="{{ asset('assets/website/js/all.js') }}?v={{ env('ASSETS_VERSION') }}"></script>
     <script src="{{ asset('assets/website/js/jquery.ez-plus.js') }}?v={{ env('ASSETS_VERSION') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-creditcardvalidator@1.0.0/jquery.creditCardValidator.min.js"></script>
+
+    {{-- Search script --}}
+    <script>
+        $("#search-form").submit((e)=>{
+            e.preventDefault();
+            let token   = $('meta[name="csrf-token"]').attr('content');
+            let link = $("#search-form").attr('data-link');
+            let inputVal = $("#search-input").val();
+            let formData = new FormData();
+            formData.append('q', inputVal);
+            formData.append('_token', token);
+            
+            $.ajax({
+                url: link,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: formData,
+                cache: false,
+                dataType: "JSON",
+                success: function(response){
+                    if(response.products.data.length){
+                        console.log(response.products.data);
+                    }
+                },
+                error : function(error){
+                    console.log(error);
+                }
+            });
+        })
+
+        $("#search-input").keyup(()=>{
+            
+            let token   = $('meta[name="csrf-token"]').attr('content');
+            let link = $("#search-form").attr('data-link');
+            let inputVal = $("#search-input").val();
+            let result = $("#result");
+            let formData = new FormData();
+            formData.append('q', inputVal);
+            formData.append('_token', token);
+            
+            $.ajax({
+                url: link,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: formData,
+                cache: false,
+                dataType: "JSON",
+                success: function(response){
+                    if(response.products.data.length){
+                        result.empty();
+                        result.slideDown();
+                        for(let i=0;i<response.products.data.length; i++){
+                            result.append('<p>'+response.products.data[i].name.ar+'</p>');
+                        }
+                    }else{
+                        result.empty();
+                    }
+                },
+                error : function(error){
+                    console.log(error);
+                }
+            });
+        })
+
+        $("#search-input").on('blur', function(){
+            let result = $("#result");
+            result.empty();
+            result.slideUp();
+        })
+        
+    </script>
 </body>
 
 <script>
