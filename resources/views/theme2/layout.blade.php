@@ -208,7 +208,10 @@ a.navigation__item.ps-toggle--sidebar {
     z-index: 99999;
 }
 
-#result{
+input#search-input{
+    text-align: right;
+}
+#results{
     display: none;
     border: 1px #CCC solid;
     width: 535px;
@@ -219,13 +222,13 @@ a.navigation__item.ps-toggle--sidebar {
     max-height: 400px;
     overflow-y: scroll;
 }
-#result > p{
+#results > p{
     cursor: pointer;
     padding: 5px;
     margin-bottom: 0;
     padding: 10px 10px 10px 0;
 }
-#result > p:hover{
+#results > p:hover{
     background-color: rgb(195, 20, 50);
     color: #FFF;
 }
@@ -284,16 +287,22 @@ a.navigation__item.ps-toggle--sidebar {
                 </div>
                 <div class="header__content-center">
                     
-                    <form class="ps-form--quick-search" id="search-form" data-link="{{ route('search' ,[  'store' => $store] ) }}" method="post">
+                    <form   class="ps-form--quick-search"
+                            id="search-form"
+                            autocomplete="off"
+                            data-link="{{ route('search' ,[  'store' => $store] ) }}"
+                            method="post"
+                    >
                         <input  type="text"
                                 class="form-control"
                                 id="search-input"
-                                name="q" 
+                                name="q"
                                 placeholder="{{ __('Search') }}"
-                                required>
+                                required
+                        >
                         <button class="btn" type="submit"><i class="icon-search"></i>{{ __('Search') }}</button>
                     </form>
-                    <div id="result">
+                    <div id="results">
                     </div>
                 </div>
                 <div class="header__content-right">
@@ -582,75 +591,81 @@ a.navigation__item.ps-toggle--sidebar {
 
     {{-- Search script --}}
     <script>
-        $("#search-form").submit((e)=>{
-            e.preventDefault();
-            let token   = $('meta[name="csrf-token"]').attr('content');
-            let link = $("#search-form").attr('data-link');
-            let inputVal = $("#search-input").val();
-            let formData = new FormData();
-            formData.append('q', inputVal);
-            formData.append('_token', token);
-            
-            $.ajax({
-                url: link,
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                data: formData,
-                cache: false,
-                dataType: "JSON",
-                success: function(response){
-                    if(response.products.data.length){
-                        console.log(response.products.data);
-                    }
-                },
-                error : function(error){
-                    console.log(error);
-                }
-            });
-        })
-
-        $("#search-input").keyup(()=>{
-            
-            let token   = $('meta[name="csrf-token"]').attr('content');
-            let link = $("#search-form").attr('data-link');
-            let inputVal = $("#search-input").val();
-            let result = $("#result");
-            let formData = new FormData();
-            formData.append('q', inputVal);
-            formData.append('_token', token);
-            
-            $.ajax({
-                url: link,
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                data: formData,
-                cache: false,
-                dataType: "JSON",
-                success: function(response){
-                    if(response.products.data.length){
-                        result.empty();
-                        result.slideDown();
-                        for(let i=0;i<response.products.data.length; i++){
-                            result.append('<p>'+response.products.data[i].name.ar+'</p>');
+            $("#search-form").submit(function(e){
+                e.preventDefault();
+                let token   = $('meta[name="csrf-token"]').attr('content');
+                let link = $(this).attr('data-link');
+                let inputVal = $("#search-input").val();
+                let formData = new FormData();
+                formData.append('q', inputVal);
+                formData.append('_token', token);
+                
+                $.ajax({
+                    url: link,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    cache: false,
+                    dataType: "JSON",
+                    success: function(response){
+                        if(response.products.data.length){
+                            console.log(response.products.data);
                         }
-                    }else{
-                        result.empty();
+                    },
+                    error : function(error){
+                        console.log(error);
                     }
-                },
-                error : function(error){
-                    console.log(error);
-                }
-            });
-        })
+                });
+            })
 
-        $("#search-input").on('blur', function(){
-            let result = $("#result");
-            result.empty();
-            result.slideUp();
-        })
-        
+            $("#search-input").keyup(function(){
+                
+                let token   = $('meta[name="csrf-token"]').attr('content');
+                let link = $("#search-form").attr('data-link');
+                let inputVal = $(this).val();
+                let results = $("#results");
+                let activeResult = "";
+                let formData = new FormData();
+                formData.append('q', inputVal);
+                formData.append('_token', token);
+                
+                $.ajax({
+                    url: link,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    cache: false,
+                    dataType: "JSON",
+                    success: function(response){
+                        if(response.products.data.length){
+                            results.empty();
+                            results.slideDown();
+                            for(let i=0;i<response.products.data.length; i++){
+                                results.append(`<p class="result" id="${response.products.data[i].id}">${response.products.data[i].name.ar}</p>`);
+                            }
+                            $("p.result").click(function(){
+                                activeResult = $(this)[0].innerHTML;
+                                $("#search-input").val(activeResult);
+                                results.slideUp();
+                                results.empty();
+                            })
+                        }else{
+                            results.empty();
+                        }
+                    },
+                    error : function(error){
+                        console.log(error);
+                    }
+                });
+            })
+
+            $("#search-input").blur(function(){
+                let results = $("#results");
+                results.empty();
+                results.slideUp();
+            })
     </script>
 </body>
 
