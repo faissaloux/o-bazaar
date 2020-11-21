@@ -232,6 +232,11 @@ input#search-input{
     background-color: rgb(195, 20, 50);
     color: #FFF;
 }
+div.img-cont{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
     </style>
 </head>
 
@@ -643,13 +648,18 @@ input#search-input{
                             results.empty();
                             results.slideDown();
                             for(let i=0;i<response.products.data.length; i++){
-                                results.append(`<p class="result" id="${response.products.data[i].id}">${response.products.data[i].name.ar}</p>`);
+                                results.append(`<p class="result d-flex justify-content-end" id="${response.products.data[i].id}" data-store="${response.products.data[i].store_id}">
+                                                    <span>${response.products.data[i].name.ar}</span>
+                                                </p>`);
+                                let result = $(`p#${response.products.data[i].id}`);
+                                result.append(`<div class="img-cont">
+                                                    <img src="${response.products.data[i].thumbnail}"}>
+                                                </div>`);
                             }
                             $("p.result").click(function(){
-                                activeResult = $(this)[0].innerHTML;
-                                $("#search-input").val(activeResult);
-                                results.slideUp();
-                                results.empty();
+                                let productId = $(this)[0].id;
+                                let productSlug = response.storeSlug[0].slug;
+                                window.location.href = `/${productSlug}/shop/product/${productId}`;
                             })
                         }else{
                             results.empty();
@@ -663,7 +673,6 @@ input#search-input{
 
             $("#search-input").blur(function(){
                 let results = $("#results");
-                results.empty();
                 results.slideUp();
             })
     </script>
